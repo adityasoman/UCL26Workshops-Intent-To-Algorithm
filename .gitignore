@@ -1,0 +1,16 @@
+# --- AI assistant / Claude Code files (kept local, not committed) ---
+.agents/
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+**/CLAUDE.md
+**/CLAUDE.local.md
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- OS / editor clutter ---
+.DS_Store
+Thumbs.db
+.vscode/
