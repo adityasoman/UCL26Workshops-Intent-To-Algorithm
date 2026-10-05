@@ -29,13 +29,25 @@ Not yet. This is a setup check before the real lessons start.
 
 1. Open `00_hello_world.py` in the ScriptEditor (command: `ScriptEditor`).
 2. Press the green **Run** button (or **F5**).
-3. You should see `Hello World` in the Console at the bottom.
+3. You should see `Hello World` in the Console at the bottom, and then a small pop-up window that also says `Hello World`. Click **OK** to close it.
+
+## Step by step
+
+### Step 1 · `print()`
+Sends text to the **Console**. This is where you'll look most of the time: it's quiet, and it keeps a record of every message.
+
+### Step 2 · `rs.MessageBox()`
+Shows the same text in a **pop-up window**. You have to click **OK** before the script carries on, so it's useful for something you can't miss.
+
+- `import rhinoscriptsyntax as rs` borrows Rhino's toolbox of commands and calls it `rs`. Imports are explained properly in lesson 02. For now, read `rs.MessageBox` as "the MessageBox tool from Rhino's toolbox".
+- Don't use pop-ups inside loops: you'd have to click OK once for every repetition. For checking values, `print()` is almost always better.
 
 ## Try this
 
 1. Change the text to your own name and run again.
 2. Add a second line, `print("Hello Bartlett")`, and run. Python runs lines from top to bottom, in order.
-3. Delete one of the quote marks and run. Read the red message in the Console: that's your first error (lesson 03).
+3. Change the `rs.MessageBox` text to `"Ready for lesson 01"` and run.
+4. Delete one of the quote marks and run. Read the red message in the Console: that's your first error (lesson 03).
 
 ## Ask the AI
 

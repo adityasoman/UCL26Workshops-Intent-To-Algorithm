@@ -76,14 +76,14 @@ Change a value, press **Run** again, and see what changes. The **Try this** sect
 | 01 | [`01_data_types/`](01_data_types/01_data_types.md) | Numbers, text, true/false, lists | Producer | ready |
 | 02 | [`02_imports/`](02_imports/02_imports.md) | Borrowing tools with `import` | Producer | ready |
 | 03 | [`03_console_errors/`](03_console_errors/03_console_errors.md) | Reading error messages | — | ready |
-| 04 | `04_functions/` | Reusable recipes with `def` | Consumer | coming soon |
-| 05 | `05_conditionals/` | Design rules with `if / elif / else` | Operator | coming soon |
-| 06 | `06_loops/` | Repeating with `for` and `while` | Producer + Consumer | coming soon |
-| 07 | `07_classes/` | Objects with `class`, plus RhinoCommon | Operator + Consumer | coming soon |
-| 08 | `08_data_input_output/` | Reading and writing files | Producer | coming soon |
-| 09 | `09_capstone_producer_operator_consumer/` | A full mini-system | All three | coming soon |
+| 04 | [`04_functions/`](04_functions/04_functions.md) | Reusable recipes with `def` | Consumer | ready |
+| 05 | [`05_conditionals/`](05_conditionals/05_conditionals.md) | Design rules with `if / elif / else` | Operator | ready |
+| 06 | [`06_loops/`](06_loops/06_loops.md) | Repeating with `for` and `while` | Producer + Consumer | ready |
+| 07 | [`07_classes/`](07_classes/07_classes.md) | Objects with `class`, plus RhinoCommon | Operator + Consumer | ready |
+| 08 | [`08_data_input_output/`](08_data_input_output/08_data_input_output.md) | Reading and writing files | Producer | ready |
+| 09 | [`09_capstone_producer_operator_consumer/`](09_capstone_producer_operator_consumer/09_capstone_producer_operator_consumer.md) | A full mini-system | All three | ready |
 
-The same lessons are available for Grasshopper in [`../Grasshopper scripts/`](../Grasshopper%20scripts/README.md).
+The same concepts are taught for Grasshopper in [`../Grasshopper scripts/`](../Grasshopper%20scripts/README.md). From lesson 04 on, they use **different examples**, so doing both gives you two applications of each concept.
 
 ---
 

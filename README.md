@@ -5,14 +5,14 @@ Python module, The Bartlett School of Architecture
 
 > 🚧 **Facilitator guide in progress.** Lesson order, timings and talking points will be added here once all the lessons are written.
 
-## What's in this folder
+## What's in this repository
 
 | Folder | What's inside |
 |--------|---------------|
-| [`RhinoScript editor/`](RhinoScript%20editor/README.md) | 9 Python 3 lessons to run in the Rhino 8 **ScriptEditor** |
-| [`Grasshopper scripts/`](Grasshopper%20scripts/README.md) | The same 9 lessons, set up for the Rhino 8 Grasshopper **Script** component |
-| [`Prompt guidelines/`](Prompt%20guidelines/README.md) | How to prompt AI to clarify intent, develop logic, and generate or debug scripts |
-| `data/` | Sample site data used in lessons 08 and 09 |
+| [`Intent-to-Algorithm/RhinoScript editor/`](Intent-to-Algorithm/RhinoScript%20editor/README.md) | 10 Python 3 lessons (00–09) to run in the Rhino 8 **ScriptEditor** |
+| [`Intent-to-Algorithm/Grasshopper scripts/`](Intent-to-Algorithm/Grasshopper%20scripts/README.md) | The same concepts for the Rhino 8 Grasshopper **Script** component, with **different examples** from lesson 04 on |
+| [`Intent-to-Algorithm/Prompt guidelines/`](Intent-to-Algorithm/Prompt%20guidelines/README.md) | How to prompt AI to clarify intent, develop logic, and generate or debug scripts |
+| [`Intent-to-Algorithm/data/`](Intent-to-Algorithm/data/README.md) | Sample site data used in lessons 08 and 09 |
 | [`Individual-Assignments/`](Individual-Assignments/README.md) | Where each student uploads their own work (folder per student, branch + pull request) |
 | [`Group-Assignments/`](Group-Assignments/README.md) | Where each group uploads its shared work (folder per group, branch + pull request) |
 

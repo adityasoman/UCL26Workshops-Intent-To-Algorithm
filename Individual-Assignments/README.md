@@ -41,7 +41,7 @@ Don't upload straight to `main`. Work on **your own branch** and open a **pull r
 
 1. Open the repository on GitHub.
 2. Click the **branch dropdown** (it says `main`), type your branch name (e.g. `jane-smith`), and click **Create branch: jane-smith from main**.
-3. Make sure your branch is selected, then go into `Intent-to-Algorithm/Individual-Assignments/`.
+3. Make sure your branch is selected, then go into `Individual-Assignments/`.
 4. Click **Add file → Upload files**. Drag in your files.
    - To create folders, type the path in **Add file → Create new file**, e.g. `Jane-Smith/Assignment-01/Assignment-01.md`. Each `/` creates a folder.
 5. At the bottom, choose **Commit directly to the `jane-smith` branch** and click **Commit changes**.
@@ -55,7 +55,7 @@ git checkout main
 git pull                                # get the latest version first
 git checkout -b jane-smith              # create your branch (only the first time)
 # ...add your files under Individual-Assignments/Jane-Smith/Assignment-01/
-git add Intent-to-Algorithm/Individual-Assignments/Jane-Smith
+git add Individual-Assignments/Jane-Smith
 git commit -m "Jane Smith - Assignment 01"
 git push -u origin jane-smith
 ```

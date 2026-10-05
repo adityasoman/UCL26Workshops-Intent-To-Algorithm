@@ -1,6 +1,6 @@
 # Grasshopper scripts lessons
 
-These lessons run in the **Rhino 8 Grasshopper Script component** using **Python 3**. They are the same lessons as the [RhinoScript editor](../RhinoScript%20editor/README.md) versions and use the same example and variable names. What changes is how the script gets its inputs and returns its results.
+These lessons run in the **Rhino 8 Grasshopper Script component** using **Python 3**. They teach the same concepts as the [RhinoScript editor](../RhinoScript%20editor/README.md) versions. Lessons 00–03 use the same example as the Rhino version. From lesson 04 on, **each Grasshopper lesson uses a different architectural example** (e.g. façade fins instead of a street of towers), so you see every concept applied twice. The other difference is how the script gets its inputs and returns its results.
 
 | | RhinoScript editor | Grasshopper Script component |
 |---|---|---|
@@ -96,12 +96,12 @@ Move a slider and the component re-runs straight away. The **Try this** section 
 | 01 | [`01_data_types/`](01_data_types/01_data_types.md) | Numbers, text, true/false, lists | Producer | ready |
 | 02 | [`02_imports/`](02_imports/02_imports.md) | Borrowing tools with `import` | Producer | ready |
 | 03 | [`03_console_errors/`](03_console_errors/03_console_errors.md) | Reading error messages and component colours | — | ready |
-| 04 | `04_functions/` | Reusable recipes with `def` | Consumer | coming soon |
-| 05 | `05_conditionals/` | Design rules with `if / elif / else` | Operator | coming soon |
-| 06 | `06_loops/` | Repeating with `for` and `while` | Producer + Consumer | coming soon |
-| 07 | `07_classes/` | Objects with `class`, plus RhinoCommon | Operator + Consumer | coming soon |
-| 08 | `08_data_input_output/` | Reading and writing files | Producer | coming soon |
-| 09 | `09_capstone_producer_operator_consumer/` | A full mini-system | All three | coming soon |
+| 04 | [`04_functions/`](04_functions/04_functions.md) | Reusable recipes with `def` | Consumer | ready |
+| 05 | [`05_conditionals/`](05_conditionals/05_conditionals.md) | Design rules with `if / elif / else` | Operator | ready |
+| 06 | [`06_loops/`](06_loops/06_loops.md) | Repeating with `for` and `while` | Producer + Consumer | ready |
+| 07 | [`07_classes/`](07_classes/07_classes.md) | Objects with `class`, plus RhinoCommon | Operator + Consumer | ready |
+| 08 | [`08_data_input_output/`](08_data_input_output/08_data_input_output.md) | Reading and writing files | Producer | ready |
+| 09 | [`09_capstone_producer_operator_consumer/`](09_capstone_producer_operator_consumer/09_capstone_producer_operator_consumer.md) | A full mini-system | All three | ready |
 
 ---
 

@@ -8,3 +8,8 @@
 
 # --- STEP 1: Say hello ----------------------------------------
 print("Hello World")  # show the text inside the quotes in the Console
+
+
+# --- STEP 2: Say hello in a pop-up (see .md → Step 2) ---------
+# import rhinoscriptsyntax as rs 
+# rs.MessageBox("Hello World") 

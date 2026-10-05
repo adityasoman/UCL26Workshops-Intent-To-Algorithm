@@ -44,7 +44,7 @@ Don't upload straight to `main`. Work on **a branch for your group** and open a 
 
 1. Open the repository on GitHub.
 2. Click the **branch dropdown** (it says `main`). Type the branch name (e.g. `group-03-daylight`) and click **Create branch … from main**. If a teammate already created it, just select it.
-3. With your group branch selected, go into `Intent-to-Algorithm/Group-Assignments/`.
+3. With your group branch selected, go into `Group-Assignments/`.
 4. Click **Add file → Upload files**. Drag in your files.
    - To create folders, type the path in **Add file → Create new file**, e.g. `Group-03-Daylight/Assignment-01/Assignment-01.md`. Each `/` creates a folder.
 5. At the bottom, choose **Commit directly to the `group-03-daylight` branch** and click **Commit changes**.
@@ -58,7 +58,7 @@ git checkout main
 git pull                                    # get the latest version first
 git checkout -b group-03-daylight           # first member only; others: git fetch && git checkout group-03-daylight
 # ...add your files under Group-Assignments/Group-03-Daylight/Assignment-01/
-git add Intent-to-Algorithm/Group-Assignments/Group-03-Daylight
+git add Group-Assignments/Group-03-Daylight
 git commit -m "Group 03 Daylight - Assignment 01"
 git push -u origin group-03-daylight
 ```
