@@ -13,6 +13,8 @@ Python module, The Bartlett School of Architecture
 | [`Grasshopper scripts/`](Grasshopper%20scripts/README.md) | The same 9 lessons, set up for the Rhino 8 Grasshopper **Script** component |
 | [`Prompt guidelines/`](Prompt%20guidelines/README.md) | How to prompt AI to clarify intent, develop logic, and generate or debug scripts |
 | `data/` | Sample site data used in lessons 08 and 09 |
+| [`Individual-Assignments/`](Individual-Assignments/README.md) | Where each student uploads their own work (folder per student, branch + pull request) |
+| [`Group-Assignments/`](Group-Assignments/README.md) | Where each group uploads its shared work (folder per group, branch + pull request) |
 
 ## The framework used in every lesson
 
