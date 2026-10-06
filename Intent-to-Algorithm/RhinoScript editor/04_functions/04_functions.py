@@ -7,7 +7,7 @@
 
 
 # --- IMPORTS ---------------------------------------------------
-import rhinoscriptsyntax as rs  # Rhino's beginner-friendly toolbox (lesson 02)
+import rhinoscriptsyntax as rs  
 
 
 # --- SETTINGS (change these and run again) --------------------
