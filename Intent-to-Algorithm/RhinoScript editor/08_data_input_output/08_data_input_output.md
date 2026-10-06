@@ -33,15 +33,20 @@ This lesson is mainly a **Producer**: it brings outside information into the scr
 
 ## How to run
 
-1. **Set the data folder.** At the top of the file, find the line marked `# CHANGE THIS`. Change `DATA_FOLDER` to the `data` folder of this workshop on your computer. For example:
+1. Open `08_data_input_output.py` **from the workshop folder** in the ScriptEditor (command: `ScriptEditor` → File → Open) and press **Run** (F5). The script finds the `data` folder by itself, because it's always two folders up from the lesson file.
+2. **Only if you moved the lesson file** somewhere else: find the line marked `# CHANGE THIS`, remove the `#` at its start, and type the path to the `data` folder. For example:
    - Windows: `DATA_FOLDER = r"C:\Users\you\Downloads\Intent-to-Algorithm\data"` (keep the `r` before the quotes)
    - Mac: `DATA_FOLDER = "/Users/you/Downloads/Intent-to-Algorithm/data"`
-2. Open `08_data_input_output.py` in the ScriptEditor (command: `ScriptEditor`) and press **Run** (F5).
 3. You should see 48 labelled points on layer `Lesson_08`, the rows and plots counts in the Console, and a new file `output_summary.csv` in the data folder.
 
 If the path is wrong, the Console says so politely instead of crashing. Fix the path and run again.
 
 ## Step by step
+
+### Settings · Finding the data folder
+`__file__` is a special variable holding the full path of the script that's running. `os.path.dirname` takes the folder part, and `".."` means "up one folder". So `lesson folder → .. → .. → data` lands in `Intent-to-Algorithm/data`, wherever the workshop is on your computer. `os.path.normpath` tidies the `..` parts away.
+
+If the script isn't saved as a file (for example, you pasted it into a new tab), `__file__` doesn't exist and Python raises a `NameError`. The `try / except NameError` catches that, and you set the path by hand instead. This is your first `try / except`; Step 2 explains it properly.
 
 ### Step 1 · File paths
 `os.path.join` glues folder and file names together with the right slash for your computer (`\` on Windows, `/` on Mac). Always `print` the path you're using: most file problems are just a wrong path.
@@ -68,7 +73,7 @@ Each row becomes a point with a label, plus one rule (lesson 05) to decide sunny
 ## Try this
 
 1. Change `sunny_hours` to `7.0` and run. Open `output_summary.csv` in Excel: how many points are sunny now?
-2. Break the path on purpose (add an `x` to `DATA_FOLDER`) and run. Read the message, then fix it.
+2. Break the path on purpose: un-comment the `CHANGE THIS` line, leave it pointing to `C:\Users\you\...`, and run. Read the message, then fix it.
 3. Open `output_summary.csv` in Excel, keep it open, and run again. What happens?
 4. Print every plot in `plots.json` whose `"use"` is `"housing"`.
 

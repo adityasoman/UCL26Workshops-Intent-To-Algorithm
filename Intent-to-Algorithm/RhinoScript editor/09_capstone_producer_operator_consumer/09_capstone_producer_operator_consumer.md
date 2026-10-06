@@ -36,8 +36,7 @@ This is the whole point of the workshop: a vague intent ("respond to sun, respec
 
 ## How to run
 
-1. Set `DATA_FOLDER` (marked `# CHANGE THIS`) to this workshop's `data` folder, as in lesson 08.
-2. Open the file in the ScriptEditor (command: `ScriptEditor`) and press **Run** (F5).
+1. Open the file **from the workshop folder** in the ScriptEditor (command: `ScriptEditor`) and press **Run** (F5). It finds the `data` folder by itself, as in lesson 08. (Only if you moved the file: set `DATA_FOLDER` on the line marked `# CHANGE THIS`.)
 3. You should see boxes of different heights coloured from blue (low) to red (tall), green points for open spots, and a green circle showing the park rule, all on layer `Lesson_09`. The Console reports the counts and the tallest building.
 
 ## Step by step

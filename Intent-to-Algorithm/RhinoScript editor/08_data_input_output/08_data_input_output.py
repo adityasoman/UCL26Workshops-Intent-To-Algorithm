@@ -15,8 +15,15 @@ import rhinoscriptsyntax as rs  # Rhino's beginner-friendly toolbox
 
 # --- SETTINGS (change these and run again) --------------------
 LESSON_LAYER = "Lesson_08"  # the layer this lesson draws on
-# CHANGE THIS: the folder on YOUR computer that holds site_points.csv and plots.json
-DATA_FOLDER = os.path.join(os.path.expanduser("~"), "Documents", "Intent-to-Algorithm", "data")  # ~ = your home folder
+# The data folder is found automatically from where this .py file is saved:
+#   Intent-to-Algorithm/RhinoScript editor/<lesson folder>/<this file>  →  up 2 folders  →  data/
+try:  # __file__ is this script's own path; it only exists when the script is saved as a file
+    LESSON_FOLDER = os.path.dirname(os.path.abspath(__file__))  # the folder this .py file is in
+    DATA_FOLDER = os.path.normpath(os.path.join(LESSON_FOLDER, "..", "..", "data"))  # ".." = up one folder
+except NameError:  # the script isn't saved as a file (e.g. pasted into a new, unsaved tab)
+    DATA_FOLDER = ""  # nothing found: set it by hand on the line below
+# CHANGE THIS only if your data files are somewhere else (remove the # and edit the path):
+# DATA_FOLDER = r"C:\Users\you\Downloads\Intent-to-Algorithm\data"  # keep the r before the quotes
 sunny_hours = 5.0  # DESIGN RULE: points with at least this many sun hours count as "sunny"
 
 
@@ -41,7 +48,7 @@ try:  # TRY the indented lines; if one fails, jump to 'except' instead of crashi
         for row in reader:  # one row at a time
             rows.append(row)  # keep it
 except FileNotFoundError:  # only this kind of error is caught here
-    print("Couldn't find the file. Check DATA_FOLDER at the top of the script (marked CHANGE THIS).")  # friendly message
+    print("Couldn't find the file. Is this lesson still inside the workshop folder? If not, set DATA_FOLDER (CHANGE THIS).")  # friendly message
 
 print("rows read:", len(rows))  # 48 if everything worked
 

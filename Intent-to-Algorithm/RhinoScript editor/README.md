@@ -95,4 +95,4 @@ The same concepts are taught for Grasshopper in [`../Grasshopper scripts/`](../G
 | `ModuleNotFoundError: No module named 'numpy'` | The script imports a library that isn't installed | The lessons only use built-in modules. If AI-generated code imports extra libraries, ask it to use the standard library only |
 | Nothing appears in the viewport | The geometry might be off-screen or on a hidden layer | Run `Zoom` → `Extents` and check the Layers panel |
 | Rhino freezes | Usually a `while` loop that never stops | Press **Esc**, or close Rhino if that doesn't work. Lesson 06 explains how to avoid this |
-| `FileNotFoundError` in lesson 08 | The data folder path is wrong on your computer | Edit the line marked `# CHANGE THIS` at the top of the file |
+| "Couldn't find the file" in lessons 08–09 | The lesson file was moved out of the workshop folder, or run from an unsaved tab | Open the `.py` from inside the workshop folder, or set `DATA_FOLDER` on the line marked `# CHANGE THIS` |

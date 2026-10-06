@@ -24,8 +24,13 @@ import scriptcontext as sc  # the Rhino document (lesson 07)
 
 # --- SETTINGS: the design rules live here (change and run again)
 LESSON_LAYER = "Lesson_09"  # the layer this lesson draws on
-# CHANGE THIS: the folder on YOUR computer that holds site_points.csv
-DATA_FOLDER = os.path.join(os.path.expanduser("~"), "Documents", "Intent-to-Algorithm", "data")  # see lesson 08
+try:  # find the data folder from where this file is saved, exactly as in lesson 08
+    LESSON_FOLDER = os.path.dirname(os.path.abspath(__file__))  # the folder this .py file is in
+    DATA_FOLDER = os.path.normpath(os.path.join(LESSON_FOLDER, "..", "..", "data"))  # up 2 folders, into data/
+except NameError:  # the script isn't saved as a file
+    DATA_FOLDER = ""  # set it by hand below
+# CHANGE THIS only if your data files are somewhere else (remove the # and edit the path):
+# DATA_FOLDER = r"C:\Users\you\Downloads\Intent-to-Algorithm\data"  # keep the r before the quotes
 park = [50.0, 50.0]  # park centre (x, y)
 park_radius = 20.0  # RULE: closer than this to the park → open space
 min_sun = 3.5  # RULE: fewer sun hours than this → not built on
@@ -48,7 +53,7 @@ def producer(folder):  # returns a list of dictionaries with NUMBERS, not text
                     "sun": float(row["sun_hours"]),  # text → number
                 })
     except FileNotFoundError:  # friendly message instead of a crash
-        print("Couldn't find", path, "— check DATA_FOLDER (CHANGE THIS).")  # tell the user what to fix
+        print("Couldn't find", path, "— is the lesson still inside the workshop folder? If not, set DATA_FOLDER (CHANGE THIS).")  # tell the user what to fix
     return spots  # hand the information on
 
 
