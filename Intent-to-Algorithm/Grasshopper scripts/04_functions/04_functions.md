@@ -1,6 +1,6 @@
 # Lesson 04 · Functions
 
-**Environment:** Rhino 8 Grasshopper, Script component (Python 3) · **Code:** [`04_functions.py`](04_functions.py) · **Role:** Consumer
+**Environment:** Rhino 8 Grasshopper, Script component (Python 3) · **Code:** [`04_functions.py`](04_functions.py) ·
 
 > **Different example from the Rhino version.** The RhinoScript editor lesson builds a street of towers with `make_tower()`. This one builds a **façade of vertical fins** with `make_fin()`. The concept is the same, so you get two examples to compare.
 

@@ -21,9 +21,7 @@ To send a result out of the component properly, you **store it in a variable wit
 
 `print()` and outputs are how a script talks back to you. You'll use them constantly to check what your design data and rules are doing.
 
-## Where this sits in Producer → Operator → Consumer
 
-Not yet. This is a setup check before the real lessons start.
 
 ## Component setup
 

@@ -53,7 +53,7 @@ TypeError: can only concatenate str (not "float") to str      <- 1. WHAT went wr
 
 AI-generated scripts often fail on the first run. If you can read the error, you can fix it yourself, or give the AI the **exact** message so it can fix it properly instead of guessing.
 
-## Where this sits in Producer → Operator → Consumer
+## Where this sits in the Workshop
 
 Not a single role: this is the debugging skill you'll use in all three.
 
