@@ -23,8 +23,9 @@ components are not the target for this file.
 1. Place a Python 3 Script component and open its editor.
 2. Replace the existing code with the complete contents of
    `10_Art_Installation.py`.
-3. Rename its inputs and outputs exactly as shown below. Remove unused default
-   inputs such as `x` and `y`, and rename the default result output as needed.
+3. Rename its inputs and regular outputs exactly as shown below. Remove unused
+   default inputs such as `x` and `y`. **Keep the special `out` output unchanged**;
+   rename the regular result output **`a` to `meshes`**, then add the other outputs.
 4. Set every input to **Item Access**, not List or Tree Access. Give each input
    a single slider value; multiple values cause multiple component executions.
 5. For inputs you add but leave unwired, enable **Optional** if necessary so the
@@ -87,7 +88,17 @@ sizes, `lean` outside 0-2, `fold` outside 0-1, and `gap` outside 0-0.5.
 
 ## 3. Outputs and colour preview
 
-Add these outputs using the exact names:
+**Important: `out` is a special console output, not a geometry output.** It
+captures `print(info)`, so it returns the summary beginning with `440 modules`.
+Renaming this socket to `meshes` does not turn it into the regular mesh output.
+Keep it named `out`, rename the regular output `a` to `meshes`, then add the other
+regular outputs using the exact names below. If standard output is enabled,
+the output order should start with `out`, `meshes`, `colours`.
+
+If you already renamed the console socket, rename it back to `out`. Alternatively,
+disable **Standard Output/Error Parameter** in the component's context menu to
+remove that special socket, then add or rename regular outputs. Removing the
+console output does not remove the `info` summary output or the geometry.
 
 | Output | Contents | Suggested connection |
 |---|---|---|
@@ -230,6 +241,10 @@ unfolding, and assembly.
 
 ## 6. Troubleshooting
 
+- **`meshes` returns the summary text instead of geometry:** you are likely using
+  the special console output under a different name. Restore it to `out`, rename
+  the regular `a` output to `meshes` (or add a regular output named `meshes`), and
+  reconnect Custom Preview to that regular output. See section 3.
 - **No geometry:** check exact parameter names, Script mode, Item Access, and
   whether unwired inputs are Optional. Connect `info` or `out` to a Panel.
 - **All one colour:** connect `colours` to Custom Preview **M**, disable the

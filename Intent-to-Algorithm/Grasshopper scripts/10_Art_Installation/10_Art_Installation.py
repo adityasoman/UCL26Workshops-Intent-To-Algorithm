@@ -8,6 +8,8 @@ Core inputs: cols, rows, cell_size, height_min, height_max,
              rotation_deg, twist_deg
 Optional inputs: lean, fold, gap, flow_x, flow_y, seed, base_plane
 Outputs: meshes, colours, outlines, centres, tips, angles, heights, info
+Keep the special console output named out. Rename the regular output a
+to meshes, then add the other regular outputs. Do not rename out to meshes.
 
 See 10_Art_Installation.md for type hints, sliders and preview wiring.
 This is an image-inspired visual approximation, not a folding pattern.
