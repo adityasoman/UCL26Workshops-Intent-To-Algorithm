@@ -1,308 +1,274 @@
-# 12 - MVRDV Valley-inspired floor-wise model
+# 12 - Valley-inspired faceted towers and connected podium
 
-## What this creates
+## What changed
 
-`12_MVRDV_Valley.py` creates an approximate, automatically generated three-tower
-layout with these agreed features:
+The revised default model includes **shared, connected lower floors** below all
+three towers. Those floors are constructed once across the site, not as three
+overlapping tower bases. The podium roof between the towers receives gardens.
 
-- Independent height and floor count for each tower.
-- A maximum number of angled setback cuts per tower.
-- One separate massing block for every floor.
-- Dark facade panels representing windows, with adjustable width and height.
-- Green surfaces on exposed setback terraces and tower roofs.
+The original cumulative inward taper has also been replaced. Upper floors are
+cut with **height-limited, sloping planes**. Recesses can stop and the floors
+above can project back out, creating angular facets, setbacks and cantilever-like
+volumes. Window panels are placed on the actual inclined faces, not on vertical
+walls left over from the earlier model.
 
-The towers are arranged around an open central valley. Cuts face mainly toward
-that valley, leaving the outer sides straighter. Warm stone-like floor blocks,
-dark blue-grey panels, and green planting patches distinguish the three layers.
+**This is still a designed visual approximation, not exact MVRDV geometry.**
+The default facet bands are a fixed, photo-inspired composition, not traced or
+surveyed dimensions. Original floor profiles, the intricate podium landscape,
+circulation, glass curtain-wall detailing and the building's precise cantilevers
+are not reconstructed from the photographs.
 
-This is a **Valley-inspired visual interpretation**, not MVRDV's original
-geometry. The real project combines a smooth glass outer shell with craggy,
-stone-clad, planted inner faces. The script simplifies that contrast into
-floor-wise massing, windows, and terrace gardens. It does not recreate the
-shared podium, public circulation, exact footprints, cantilevers, balconies,
-railings, structural system, detailed glazing, or individual plants.
+## 1. Install or update the component
 
-To keep garden detection reliable, upper floors are always contained within
-the floor below. The resulting towers step inward; they do not grow out again
-into the original building's irregular cantilevers.
+1. Use a **Rhino 8 Grasshopper Python 3 Script** component in **Script mode**.
+2. Replace the entire script with `12_MVRDV_Valley.py` from this folder.
+3. Keep the special console output **`out`** unchanged. Rename the regular
+   output **`a` to `meshes`** and add **`colours`** and **`info`**.
+4. Connect `meshes` to **Custom Preview G**, `colours` to **Custom Preview M**,
+   and `info` to a Panel.
+5. Disable the Python component's own preview and previews on helper outputs.
+6. Keep all inputs on **Item Access**. Unwired inputs must be Optional, or can
+   be omitted entirely to use the built-in defaults.
 
-The three reference photographs in this folder are left unchanged. No images
-or external packages are loaded when the Grasshopper component runs.
+The existing height, floor-count, window and `max_setbacks` input names still
+work. Add the new podium and tilt controls below if desired; they also have
+defaults, so no extra inputs are necessary to see the connected base.
 
-## 1. Grasshopper setup
+If the `meshes` socket returns text, restore the renamed console socket to
+`out`, then add a regular output named `meshes`. The special `out` socket never
+becomes a geometry output just because its label changes.
 
-1. Place a **Rhino 8 Grasshopper Python 3 Script** component.
-2. Use **Script mode**, not SDK/`RunScript` mode, and paste in the entire Python
-   file.
-3. Remove unused default inputs such as `x` and `y`, or make them Optional.
-4. **Keep the special output `out` unchanged.** Rename the regular output `a`
-   to **`meshes`**. Add regular outputs **`colours`** and **`info`**.
-5. Connect `meshes` to **Custom Preview G** and `colours` to **Custom Preview M**.
-6. Connect `info` to a Panel. Turn off the Python component's own preview and
-   the preview on other helper geometry parameters.
-7. Run with defaults, then add the named inputs from section 2.
+## 2. Height and floor-count semantics
+
+**Tower heights and floor counts INCLUDE the shared podium.** The common
+floors are geometrically shared, while the upper storey heights are calculated
+independently for A, B and C:
 
 ```text
-Python meshes  -> Custom Preview G
-Python colours -> Custom Preview M
-Python info    -> Panel
-Python out     -> Panel (optional console text)
+common storey height = podium_height / podium_floors
+upper tower floors  = floors_a - podium_floors
+upper storey height = (height_a - podium_height) / upper tower floors
 ```
 
-**The script runs without inputs.** It supplies a complete default layout.
-Inputs that you add but leave unwired must be marked **Optional** so the
-component is allowed to execute and use the defaults.
+The same calculation applies independently to B and C. There is no longer one
+uniform `height / floors` value throughout a tower: common levels must align
+under all three towers.
 
-If `meshes` contains a printed summary rather than geometry, you have probably
-renamed the console socket. Rename that socket back to `out` and add or rename
-a regular result socket to `meshes`. Renaming `out` does not change its function.
+Default counts and dimensions, in millimetre-scale model units:
 
-## 2. Inputs
+| Portion | Floor count | Elevation range | Storey height |
+|---|---:|---:|---:|
+| Shared podium | 4, constructed once | 0-14000 | 3500 |
+| A above podium | 22 | 14000-100000 | 3909.09 |
+| B above podium | 19 | 14000-81000 | 3526.32 |
+| C above podium | 16 | 14000-67000 | 3312.50 |
 
-Use **Item Access for all inputs**. Names are case-sensitive. Connect one slider
-value per input to avoid Grasshopper running the entire model repeatedly.
+This produces **61 separate floor blocks**, not 69: the four common floors are
+not duplicated for each tower. Tower counts remain 26, 23 and 20 respectively
+when their shared floors are included. The roof of each massing tower still
+matches its height input exactly.
 
-### Independent tower controls
+The four-floor podium and its height are modelling assumptions, not a claim
+about the original building's exact connected-floor configuration.
 
-| Input name | Type hint | Default | Suggested slider |
+## 3. Inputs and defaults
+
+All inputs use **Item Access**. Names are case-sensitive. Use integer sliders
+for inputs marked `int` and decimal sliders for `float`.
+
+### Tower and window controls
+
+| Exact input | Type hint | Default | Meaning |
 |---|---|---:|---|
-| `height_a` | `float` | 100000 | 30000-150000 |
-| `floors_a` | `int` | 26 | Integers 5-40 |
-| `height_b` | `float` | 81000 | 30000-150000 |
-| `floors_b` | `int` | 23 | Integers 5-40 |
-| `height_c` | `float` | 67000 | 30000-150000 |
-| `floors_c` | `int` | 20 | Integers 5-40 |
+| `height_a` | `float` | 100000 | A's total height, including podium |
+| `floors_a` | `int` | 26 | A's total floor count, including shared floors |
+| `height_b` | `float` | 81000 | B's total height, including podium |
+| `floors_b` | `int` | 23 | B's total floor count, including shared floors |
+| `height_c` | `float` | 67000 | C's total height, including podium |
+| `floors_c` | `int` | 20 | C's total floor count, including shared floors |
+| `max_setbacks` | `int` | 12 | Maximum bounded facet-cut patches per tower |
+| `window_width` | `float` | 1600 | Width of each dark panel |
+| `window_height` | `float` | 2200 | Vertical height of each panel |
 
-Each tower starts at Z = 0. Its floor-to-floor height is exactly:
+### New connected-base and facet controls
+
+| Exact input | Type hint | Default | Suggested slider | Meaning |
+|---|---|---:|---|---|
+| `podium_floors` | `int` | 4 | 0-8 | Shared connected lower storeys |
+| `podium_height` | `float` | 14000 | 6000-28000 | Combined height of those storeys |
+| `podium_margin` | `float` | 2000 | 0-6000 | Extra X/Y padding around the common footprint |
+| `facet_tilt` | `float` | 0.85 | 0-1 | Difference in cut depth over a facet band's height |
+
+Set `podium_floors = 0` to disable the connected base; `podium_height` is then
+ignored and towers use their original full-height/floor-count calculation.
+With the podium enabled, each tower must have at least one floor and positive
+height above it. The podium needs a positive total height.
+
+### Other optional controls
+
+| Exact input | Type hint | Default | Meaning |
+|---|---|---:|---|
+| `footprint_width` | `float` | 30000 | Initial local-X width of each tower |
+| `footprint_depth` | `float` | 26000 | Initial local-Y depth of each tower |
+| `tower_gap` | `float` | 8000 | Extra separation in the tower layout |
+| `setback_depth` | `float` | 7000 | Maximum facet-cut depth before additional geometric limits |
+| `seed` | `int` | 17 | 17 uses the fixed default bands; other values vary them |
+| `window_spacing` | `float` | 750 | Horizontal space between panels |
+| `window_sill` | `float` | 800 | Panel-bottom elevation above its floor base |
+| `window_margin` | `float` | 250 | End margin and minimum window head allowance |
+| `garden_inset` | `float` | 200 | Margin around each exposed planting patch |
+
+The default towers now form a **shallow staggered row**: A at the left, B set
+back in the middle, and C at the right. This replaces the previous equilateral
+triangle. The common footprint is a convex hull around their uncut envelopes,
+expanded by the podium padding. Its footprint is continuous, though it does not
+reproduce the real project's site boundary or fine-grained valley circulation.
+
+### Units and fitting windows
+
+All lengths use Rhino model units; defaults assume a millimetre-scale model.
+For metres, divide **every length input**, including optional defaults, by 1000.
+Do not divide counts, `seed`, or `facet_tilt`. Geometry uses the document tolerance.
+
+Windows must fit in the podium storeys and in each tower's upper storeys:
 
 ```text
-floor-to-floor height = tower height / tower floor count
+window_sill + window_height + window_margin <= relevant storey height
 ```
 
-The defaults give approximately 3846.15, 3521.74, and 3350 model units for A, B,
-and C respectively, with **69 separate floor blocks** in total. The floor counts
-are modelling choices, not the project's documented floor counts.
+The script reports an error rather than silently changing your inputs when this
+fails. An inclined facet may also be too narrow for a full panel; those panels
+are omitted rather than drawn across an edge.
 
-The default heights correspond to the 100 m, 81 m, and 67 m tower heights in
-MVRDV's project description when used in a millimetre document. Tower labels and
-positions here are arbitrary modelling labels, not official tower identifiers.
-
-### Setback and window controls
-
-| Input name | Type hint | Default | Suggested slider | Meaning |
-|---|---|---:|---|---|
-| `max_setbacks` | `int` | 12 | Integers 0-25 | Maximum unique angled cut events applied to each tower |
-| `window_width` | `float` | 1600 | 600-3500 | Width of each dark window panel |
-| `window_height` | `float` | 2200 | 1000-2800 | Height of each dark window panel |
-
-`max_setbacks` limits **cuts over a whole tower**, not the number of polygon
-edges on every floor and not the number of mesh faces. Each event introduces
-one angled inward cut at one selected level and keeps that cut on higher floors.
-At most one new cut is introduced at each level. The actual count cannot exceed
-`min(max_setbacks, floors - 1)` and can be lower if a cut is too small to resolve.
-
-Set `max_setbacks = 0` for three simple rectangular towers with roof gardens.
-Set it higher for more stepped levels. Every intermediate floor is still a
-separate block even when several consecutive floors share the same outline.
-
-### Optional controls
-
-| Input name | Type hint | Default | Suggested slider | Meaning |
-|---|---|---:|---|---|
-| `footprint_width` | `float` | 30000 | 18000-45000 | Initial local-X width of each tower |
-| `footprint_depth` | `float` | 26000 | 18000-40000 | Initial local-Y depth of each tower |
-| `tower_gap` | `float` | 8000 | 0-25000 | Separation between bounding circles used to lay out the towers |
-| `setback_depth` | `float` | 4500 | 0-8000 | Upper limit on the depth of a new cut |
-| `seed` | `int` | 17 | Integers 0-100 | Repeatable cut levels, orientations and depths |
-| `window_spacing` | `float` | 750 | 200-2000 | Horizontal gap between panels along each facade segment |
-| `window_sill` | `float` | 800 | 0-1200 | Panel-bottom height above the floor base |
-| `window_margin` | `float` | 250 | 100-700 | Minimum facade-end margin and required head margin |
-| `garden_inset` | `float` | 200 | 0-1000 | Inward margin around each exposed garden patch |
-
-The default layout is a triangular/U-shaped arrangement around the origin: A
-front-left, B front-right, and C behind them. A and B have small opposite plan
-rotations. Initial tower footprints share the width/depth inputs; their heights,
-floor counts and cut sequences are independent.
-
-`tower_gap` is not the exact wall-to-wall valley width. The centre spacing is
-`sqrt(footprint_width^2 + footprint_depth^2) + tower_gap`, which keeps the initial
-rotated rectangles from overlapping. Setbacks remain inside those rectangles.
-
-### Units and window fit
-
-**All lengths are in Rhino model units.** Defaults are millimetre-scale values;
-the script does not automatically convert units. For metres, divide every
-length input by 1000, including the optional footprint, spacing, sill, margin,
-setback, tower-gap and garden-inset inputs. Keep floor counts, `max_setbacks`,
-and `seed` unchanged.
-
-The requested windows must fit vertically in **every** tower:
-
-```text
-window_sill + window_height + window_margin <= height / floors
-```
-
-The script gives a clear error naming the tower if they do not fit. It does not
-silently resize windows or change your floor count. For example, raising a floor
-count without increasing tower height may require a smaller window height.
-
-## 3. Outputs: combined preview and separate floor-wise geometry
-
-The minimum outputs are `meshes`, `colours`, and `info`. Add the other regular
-outputs only if you want to inspect or use the layers separately.
+## 4. Outputs and floor-wise organisation
 
 | Output | Contents |
 |---|---|
-| `meshes` | Combined preview list: floor blocks, then window meshes, then gardens |
-| `colours` | One matching colour per item in `meshes` |
-| `info` | Per-tower dimensions, actual cut counts, panel count and garden summary |
-| `floor_blocks` | One full-storey, closed massing mesh per floor |
-| `block_colours` | Matching colours for `floor_blocks` |
-| `windows` | Dark panel geometry grouped into at most one mesh per floor |
-| `window_colours` | Matching colours for `windows` |
-| `gardens` | Horizontal green terrace and roof patch meshes |
-| `garden_colours` | Matching colours for `gardens` |
-| `floor_outlines` | Closed base perimeter curve for each floor block |
-| `tower_ids` | Tower number 1, 2 or 3, aligned with `floor_blocks` |
-| `floor_ids` | Zero-based floor index within its tower, aligned with `floor_blocks` |
-| `window_block_ids` | Zero-based index into `floor_blocks` for each window mesh |
-| `garden_block_ids` | Zero-based index into `floor_blocks` supporting each garden |
-| `storey_heights` | Three numbers, ordered A, B, C |
-| `cut_counts` | Three actual setback counts, ordered A, B, C |
+| `meshes` | Combined floor-block, window and garden meshes for preview |
+| `colours` | Matching colours for `meshes` |
+| `info` | Podium, tower, facet, panel and garden diagnostics |
+| `floor_blocks` | One closed massing mesh per physically distinct storey |
+| `block_colours` | Matching floor-block colours |
+| `podium_blocks` | Shared floors only; a subset of `floor_blocks` |
+| `podium_colours` | Matching colours for `podium_blocks` |
+| `windows` | Dark panels grouped into at most one mesh per floor |
+| `window_colours` | Matching window colours |
+| `gardens` | Green terrace, podium-roof and tower-roof patches |
+| `garden_colours` | Matching garden colours |
+| `floor_outlines` | The bottom perimeter of each floor block |
+| `tower_ids` | 0 for shared podium; 1, 2 or 3 for A, B or C |
+| `floor_ids` | Zero-based overall floor index, including common levels |
+| `window_block_ids` | Index into `floor_blocks` supporting each window mesh |
+| `garden_block_ids` | Index into `floor_blocks` supporting each garden patch |
+| `storey_heights` | Upper-tower storey heights, ordered A, B, C |
+| `cut_counts` | Number of facet patches that actually affect each tower |
 
-`floor_blocks` are ordered **A bottom-to-top, then B bottom-to-top, then C**.
-At the defaults, block indices 0-25 belong to A, 26-48 to B, and 49-68 to C.
-They are separate mesh objects, not Rhino block definitions and not thin slabs:
-each represents the entire volume of one storey.
+Ordering is **shared podium bottom-to-top, A upper floors, B upper floors,
+C upper floors**. At default values, block indices 0-3 are common floors,
+4-25 belong to A, 26-44 to B, and 45-60 to C. The upper floors have `floor_ids`
+starting at 4, not zero.
 
-`tower_ids`, `floor_ids`, and `floor_outlines` correspond to `floor_blocks`,
-**not** to the longer combined `meshes` list. Use `window_block_ids` and
-`garden_block_ids` to associate those layers with a specific floor.
+Do not separately preview `podium_blocks` over the combined `meshes` preview:
+they are the same objects, provided as a convenient selection subset. Likewise,
+`tower_ids`, `floor_ids` and `floor_outlines` align with `floor_blocks`, not with
+the longer combined preview list.
 
-For separate control, use three Custom Preview components:
+Blocks are full-storey mesh volumes, not Rhino block definitions or thin slabs.
+The script does not bake objects, assign render materials or cut window holes.
 
-```text
-floor_blocks + block_colours   -> first Custom Preview
-windows + window_colours      -> second Custom Preview
-gardens + garden_colours      -> third Custom Preview
-```
+## 5. How the facets and common floors are built
 
-Disable the combined preview if you use separate previews. Colour data are also
-stored on mesh vertices, but the script does not bake anything or assign Rhino
-render materials. Baked objects may need their display/materials configured.
+### Bounded, sloping cuts instead of a taper
 
-## 4. How the model works
+The default `FACET_BANDS` table defines a start level, end level, plan angle,
+strength and slope direction for each cut patch. Fractions of the tower's upper
+floor count are rounded to floor boundaries. Each tower has a small preset
+variation, and its seed sequence is independent of the others.
 
-### A. Independent floor stacks
+Within a band, a plane's cut depth changes linearly with elevation. The script
+clips a floor's three-dimensional volume against that plane, creating actual
+inclined facade faces. Its bottom and top outlines can differ. Outside that
+band the cut is absent: volumes can project back out above recesses rather than
+shrinking cumulatively forever.
 
-Each tower begins with a rectangular plan. Its assigned total height is divided
-by its own floor count. Every polygon is extruded between successive floor
-elevations, so changing the height of A does not change B or C.
+`max_setbacks` retains its existing input name for compatibility, but now caps
+**bounded cut patches** rather than cumulative single-level setbacks. A patch
+can affect several floors and create several mesh faces. It is not a cap on
+triangle count. Extra patches beyond the 12-entry preset use seeded variations.
 
-### B. A capped sequence of angled setbacks
+Set `facet_tilt = 0` for vertical cut faces while retaining the level-bounded
+recesses and projections. Set `max_setbacks = 0` or `setback_depth = 0` for plain
+towers above the podium. Cut depths are additionally limited to protect a central
+rectangle 44 percent of the original width and depth. This is a geometric
+safeguard, not a validated structural core.
 
-For each tower, the seeded generator selects up to `max_setbacks` distinct
-levels above the ground floor. At each selected level it chooses a cut direction
-within roughly 78 degrees either side of the direction toward the central
-valley. The cut removes a portion of the current plan using a straight clipping
-line. The remaining polygon carries forward to the next floor.
+### Connected base with no duplicate volumes
 
-These are **angled plan cuts with stepped vertical transitions**, not continuous
-sloping facade surfaces. Width and depth vary as the clipped outline evolves.
-Cut depth is capped both by `setback_depth` and a protected central rectangle
-44 percent of the initial footprint width and depth. That rectangle is a
-geometric safeguard, not a designed or validated structural core.
+Each podium storey is a single extrusion of the common hull. There are no tower
+floor volumes inside those storeys. The first independent tower floors begin
+at exactly `podium_height`, and their total number and height are the remaining
+portion of the corresponding tower inputs.
 
-Because every subsequent footprint is contained in the one before it, no tower
-develops an overhang. This intentionally simplifies the real building. Changing
-`seed` redistributes the levels and cuts. Each tower uses an independent seeded
-sequence, so changing A's floor count does not regenerate B's or C's cuts.
+The shared roof is therefore a real connected horizontal level, not three
+disconnected pads or an extra slab superimposed on the tower bases.
 
-### C. Dark window panels
+### Windows follow the real facets
 
-For each floor and facade segment, the script calculates how many full-width
-panels fit after reserving the end margins and gaps. The panel group is centred
-along that segment. Panel height and sill position use your inputs directly.
+For every non-horizontal face, the script constructs a horizontal direction and
+a second direction within the face plane. It fits full rectangular panels
+between the available face intervals at sill and head height. Panels are kept
+inside the facet, even when its edges are trapezoidal or sloping.
 
-An edge too short for a full window gets no panel; the script does not stretch
-or crop it. All panels are combined into one window mesh per floor for a lighter
-Grasshopper model. A floor with no panels is omitted from the `windows` list;
-the `window_block_ids` mapping handles that case.
+Panel height is measured vertically in world Z. Panels are offset slightly
+outward from the face to avoid display flickering. They are still dark surface
+representations, not openings through a wall.
 
-Panels sit a very small distance outside the facade to avoid flickering from
-coincident faces. **There are no physical window holes** or Boolean wall cuts,
-as requested. Frames, mullions, reveals and interiors are not modelled.
+### Gardens use the top and bottom outlines at the same level
 
-### D. Automatic exposed-terrace gardens
+For a tower terrace, the candidate region is its floor's **top** outline minus
+the next floor's **bottom** outline. These are no longer necessarily the same
+as either floor's ground-plane outline because the faces can slope.
 
-At the top of each floor, the garden candidate area is:
+For the shared roof, the script subtracts **all three first-tower-floor
+footprints** from the podium roof. This leaves the connecting areas available
+for garden patches without filling under tower bases. Top tower roofs have no
+cover and also receive green patches.
 
-```text
-current floor footprint minus next floor footprint
-```
+The polygon differences are partitioned into convex pieces, then inset. This
+can create seams between planting patches. Narrow pieces that disappear after
+insetting are counted in `info`; setting `garden_inset = 0` retains the full
+resolved terrace area.
 
-The script partitions this polygon difference into convex patches using 2D
-half-plane clipping, without requiring mesh or Brep Booleans. Identical stacked
-floors produce no garden. The top floor has no floor above it, so its entire
-roof becomes a garden candidate.
+Garden detection checks the immediately adjacent storey, **not exposure to the
+sky**. A higher projecting volume can partially shelter a terrace below. This
+is deliberate and is not a daylight, headroom, planting or accessibility check.
+Gardens have no soil thickness and sit slightly above the massing surface for
+display clarity.
 
-Since upper floors are nested, the next floor also contains all floors above
-it. A terrace not covered by the next floor cannot be covered by a later floor.
-The separated tower layout prevents another tower overlapping it in plan.
+## 6. Validation and limits
 
-Each patch is inset by `garden_inset` to leave a small edge margin. Thin pieces
-that disappear after insetting are omitted and counted in `info`. Set
-`garden_inset = 0` to colour the full resolved exposed area. These are simple
-green horizontal surfaces, not individual planters or plant models.
+The revised pure-geometry calculations were checked for closed face topology,
+outward normals, planar facets, window containment, garden area balance,
+deterministic defaults and several edge-case controls. The default calculation
+produces 61 blocks, 12 effective cut patches per tower, and 27 tower terrace
+levels before garden insetting. These checks do **not** execute the RhinoCommon
+mesh implementation or Grasshopper UI; preview the result there as well.
 
-Window and garden overlays use a small tolerance-aware offset. Floor-block
-roofs match your tower heights; green roof overlays sit slightly above them
-for display clarity and have no soil thickness.
+Limits remain 150 total floors per tower, 360 summed tower floor counts,
+40 facet patches per tower, and 60,000 individual window panels. Podium floors
+are limited to 10. Large counts and tiny dimensions can be slow or fail at the
+document's modelling tolerance.
 
-## 5. Suggested variations
+- **Missing common floors:** re-paste the updated script; make sure
+  `podium_floors` is greater than zero and show the combined `meshes` output.
+- **Podium/tower dimension error:** heights and counts include common floors;
+  leave at least one upper floor and positive upper height for each tower.
+- **Window-fit error:** adjust storey heights or panel height/sill/margin.
+- **No jagged cuts:** use positive `max_setbacks` and `setback_depth`.
+- **No inclined faces:** raise `facet_tilt` above zero.
+- **Missing tiny gardens:** lower `garden_inset`; read the omitted-piece count.
+- **Text instead of geometry:** keep `out` separate from regular outputs.
 
-| Goal | Change |
-|---|---|
-| Three simple towers | `max_setbacks = 0` |
-| A few larger terraces | Reduce `max_setbacks`, increase `setback_depth` |
-| More stepped levels | Increase `max_setbacks`, within each tower's floor count |
-| New but repeatable shape | Change `seed` |
-| Wider central valley | Increase `tower_gap` |
-| Taller A only | Increase `height_a` |
-| More storeys in B | Increase `floors_b`, keeping the window-fit rule in mind |
-| Wider openings visually | Increase `window_width` |
-| More solid facade between windows | Increase `window_spacing` |
-| Green all resolved terrace area | Set `garden_inset = 0` |
-
-## 6. Troubleshooting and limits
-
-- **Text instead of geometry:** keep the special `out` socket separate and use
-  regular outputs named `meshes` and `colours`.
-- **Unconnected input stops execution:** mark that input Optional or remove it
-  so its default is used.
-- **Window-height error:** adjust the named tower's height/floor count or reduce
-  `window_height`, `window_sill`, or `window_margin`.
-- **Missing windows on narrow facets:** no full-width panel fits there; reduce
-  width or margins if needed.
-- **Missing tiny garden strips:** reduce `garden_inset`. The script reports
-  omitted exposed pieces.
-- **No intermediate gardens:** set `max_setbacks` and `setback_depth` above zero.
-  Towers with only one floor can have a roof garden but no setbacks.
-- **Wrong colours:** wire `colours` to Custom Preview M, disable overlapping
-  previews, and deselect highlighted geometry/components.
-- **Model too big:** defaults assume millimetre-scale dimensions. Adjust all
-  lengths consistently for your document.
-- **Slow interaction:** increase panel width/spacing or reduce floor counts.
-  The script allows at most 150 floors per tower, 360 floors in total, 40 cut
-  events per tower, and 60,000 individual window panels.
-
-This is a visual massing exercise, not a check of structure, facade construction,
-fire safety, access, daylight, drainage, garden loads, or architectural
-compliance. Preview the model in Rhino/Grasshopper before relying on the output.
-
-## Reference basis
-
-The architectural cues and approximate height defaults were checked against
-MVRDV's official **Valley** project description and the three local photographs
-credited to Ossip van Duivenbode. The generated footprints, floor counts,
-setbacks, window dimensions and garden layouts are modelling assumptions.
+The existing reference photographs remain unchanged. This model is not an
+architectural, structural, fabrication, safety or regulatory validation of the
+real building. Exact reconstruction would require measured source geometry.
