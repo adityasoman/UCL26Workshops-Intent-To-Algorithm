@@ -2,7 +2,7 @@
 # ^ This first line tells Rhino 8 to run the script as Python 3. Never delete it.
 
 # TECHNIQUE 2: PROMPT + IMAGE -> SCRIPT -> DEBUG | Grasshopper Python 3 Script component
-# READ FIRST: Prompt_Image_Debug.md (same folder)
+# READ FIRST: Prompt_Image_Script_Debug.md (same folder)
 # Example: rotated brick screen wall, built from Sketch.png
 #
 # Units: millimetres (set your Rhino file to mm)

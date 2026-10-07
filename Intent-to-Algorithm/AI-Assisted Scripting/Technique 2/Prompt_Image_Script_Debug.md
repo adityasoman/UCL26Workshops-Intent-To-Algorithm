@@ -224,4 +224,4 @@ Try these follow-up prompts, one at a time, and repeat Script → Debug after ea
 
 ## Tutor reference
 
-A working version of this script is in [`Prompt_Image_Debug.py`](Prompt_Image_Debug.py) in this folder. Students should try the loop with their own agent first, then compare their result with it.
+A working version of this script is in [`Prompt_Image_Script_Debug.py`](Prompt_Image_Script_Debug.py) in this folder. Students should try the loop with their own agent first, then compare their result with it.

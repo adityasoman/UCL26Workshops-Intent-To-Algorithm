@@ -13,7 +13,7 @@ import rhinoscriptsyntax as rs  # Rhino's beginner-friendly toolbox of drawing c
 # --- SETTINGS (change these and run again) --------------------
 LESSON_LAYER = "Lesson_03"  # the layer this lesson draws on
 name = "Tower A"  # the tower's name (str)
-floors = 10  # number of storeys (int)
+floors = 20  # number of storeys (int)
 floor_height = 3.5  # metres per storey (float)
 width = 20.0  # footprint size along x, in metres
 depth = 15.0  # footprint size along y, in metres
@@ -62,7 +62,7 @@ print("Starting the BREAK IT section")  # a normal line at the left edge, so we 
 # print("Tower A is tall)
 
 # ---- BREAK IT 2: IndentationError (.md → Break it 2) ----
-#     print("This line starts with spaces for no reason")
+    # print("This line starts with spaces for no reason")
 
 # ---- BREAK IT 3: NameError (.md → Break it 3) ----
 # print(tower_heigth)
@@ -74,7 +74,7 @@ print("Starting the BREAK IT section")  # a normal line at the left edge, so we 
 # w = origin[3]
 
 # ---- BREAK IT 6: AttributeError (.md → Break it 6) ----
-# shout = name.uppercase()
+shout = name.uppercase()
 
 
 # --- STEP 4: The finish line ----------------------------------
