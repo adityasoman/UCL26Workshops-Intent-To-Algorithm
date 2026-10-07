@@ -31,15 +31,6 @@ The toolboxes in this lesson:
 
 You don't need to write a square root or a random generator yourself; someone already built and tested them. Knowing **which toolbox to borrow from** lets you spend your effort on the design rules instead.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| **Producer** | reads or creates information |
-| Operator | applies rules to that information |
-| Consumer | turns the result into geometry or colour |
-
-This lesson is mainly a **Producer**. We create a random scatter of plots on a site and measure how far each one is from a park.
 
 ## Component setup
 

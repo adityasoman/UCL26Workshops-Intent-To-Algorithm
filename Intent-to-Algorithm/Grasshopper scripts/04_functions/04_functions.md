@@ -31,15 +31,6 @@ make_fin(0.0, 6.0)                                     # use the recipe
 
 A design rule you write once can be applied everywhere, and changed in one place. Change the fin detail once and the whole façade updates. AI-generated scripts are almost always organised into functions, so reading `def` and `return` is essential.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| Producer | reads or creates information |
-| Operator | applies rules to that information |
-| **Consumer** | turns the result into geometry or colour |
-
-This lesson is mainly a **Consumer**: `make_fin` turns numbers (position, height) into geometry.
 
 ## Component setup
 

@@ -35,16 +35,6 @@ Useful tools that come with loops:
 
 Most design systems are **repetitive with variation**: floors that rotate a little each time, panels across a façade, steps up a stair. Loops let you write the rule once and apply it everywhere, and with sliders you can explore the whole family of designs.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| **Producer** | reads or creates information |
-| Operator | applies rules to that information |
-| **Consumer** | turns the result into geometry or colour |
-
-This lesson is a **Producer + Consumer**: loops produce positions and counts, and turn them straight into geometry.
-
 ## Component setup
 
 Zoom in on the component and use **⊕ / ⊖** to add or remove parameters. Right-click each one to rename it, set its **Type hint**, and set **Item** or **List Access**.

@@ -25,13 +25,6 @@ We store each value in a **variable**: a name that points to a value, like a lab
 
 Before we can write rules ("taller towers where there is more sun"), we have to **describe the design as data**. Choosing the right type for each property is the first step in turning an intention into something a computer can work with.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| **Producer** | reads or creates information |
-| Operator | applies rules to that information |
-| Consumer | turns the result into geometry or colour |
 
 This lesson is mainly a **Producer**. We create the raw data that describes one tower, then output two points from it at the end.
 

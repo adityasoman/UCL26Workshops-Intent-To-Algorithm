@@ -46,16 +46,6 @@ That's why the Grasshopper versions use RhinoCommon: Grasshopper wants **geometr
 
 A plan is a set of rooms, each with data (size, name) and rules (is it big enough? what's its volume?). A class keeps each room's data and rules together, so the script reads like the brief. AI tools very often answer with classes, so you need to be able to read them.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| Producer | reads or creates information |
-| **Operator** | applies rules to that information |
-| **Consumer** | turns the result into geometry or colour |
-
-This lesson is an **Operator + Consumer**: methods like `area()` and `is_large()` apply rules, and `to_box()` / `to_outline()` turn each room into geometry.
-
 ## Component setup
 
 Zoom in on the component and use **⊕ / ⊖** to add or remove parameters. Right-click each one to rename it, set its **Type hint**, and set **Item** or **List Access**.

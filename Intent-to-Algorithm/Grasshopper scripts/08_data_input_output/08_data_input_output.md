@@ -23,16 +23,6 @@ A **dictionary** is like a labelled form: `{"id": "PL01", "use": "housing", "max
 
 Data lets your design respond to the real brief instead of invented numbers. Here, a planning schedule (use and maximum floors per plot) instantly becomes a massing model, and an area schedule you can check in Excel.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| **Producer** | reads or creates information |
-| Operator | applies rules to that information |
-| Consumer | turns the result into geometry or colour |
-
-This lesson is mainly a **Producer**: it brings outside information into Grasshopper.
-
 ## Component setup
 
 Zoom in on the component and use **⊕ / ⊖** to add or remove parameters. Right-click each one to rename it, set its **Type hint**, and set **Item** or **List Access**.

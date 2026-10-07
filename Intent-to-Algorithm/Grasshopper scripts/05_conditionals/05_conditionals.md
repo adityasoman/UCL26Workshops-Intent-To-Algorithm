@@ -39,15 +39,6 @@ Decisions are built from **comparisons**, which always answer `True` or `False` 
 
 "Active ground floor, homes above" is a design intent. A conditional forces you to be exact: *how many* retail floors? *What if* the office band is empty? Writing the rule as `if / elif / else` makes every decision explicit, and sliders let you test it instantly.
 
-## Where this sits in Producer → Operator → Consumer
-
-| Role | Meaning |
-|---|---|
-| Producer | reads or creates information |
-| **Operator** | applies rules to that information |
-| Consumer | turns the result into geometry or colour |
-
-This lesson is mainly an **Operator**: it takes a stack of floors and applies rules to decide each floor's use.
 
 ## Component setup
 
